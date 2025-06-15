@@ -9,3 +9,25 @@ Traceback (most recent call last):
         ~~~~^~~
 ZeroDivisionError: division by zero
 2025-06-15 23:02:17 - example_script - INFO - Example script completed
+2025-06-15 23:04:29 - example_script - INFO - Example script started
+2025-06-15 23:04:29 - example_script - INFO - This is an info message
+2025-06-15 23:04:29 - example_script - WARNING - This is a warning message
+2025-06-15 23:04:29 - example_script - ERROR - An error occurred: division by zero
+2025-06-15 23:04:29 - log_utils - ERROR - Application Error: {"timestamp": "2025-06-15T23:04:29.425948", "error_type": "ZeroDivisionError", "error_message": "division by zero", "context": {"operation": "division", "value": 0}}
+Traceback (most recent call last):
+  File "c:\Users\thatt\Documents\Coding Project\Python Projects\PyFlask-API Mock\example_logging.py", line 26, in main
+    _ = 100 / 0  # using _ to indicate we don't care about the result
+        ~~~~^~~
+ZeroDivisionError: division by zero
+2025-06-15 23:04:29 - example_script - INFO - Example script completed
+2025-06-15 23:04:55 - example_script - INFO - Example script started
+2025-06-15 23:04:55 - example_script - INFO - This is an info message
+2025-06-15 23:04:55 - example_script - WARNING - This is a warning message
+2025-06-15 23:04:55 - example_script - ERROR - An error occurred: division by zero
+2025-06-15 23:04:55 - log_utils - ERROR - Application Error: {"timestamp": "2025-06-15T23:04:55.949151", "error_type": "ZeroDivisionError", "error_message": "division by zero", "context": {"operation": "division", "value": 0}}
+Traceback (most recent call last):
+  File "c:\Users\thatt\Documents\Coding Project\Python Projects\PyFlask-API Mock\example_logging.py", line 26, in main
+    _ = 100 / 0  # using _ to indicate we don't care about the result
+        ~~~~^~~
+ZeroDivisionError: division by zero
+2025-06-15 23:04:55 - example_script - INFO - Example script completed

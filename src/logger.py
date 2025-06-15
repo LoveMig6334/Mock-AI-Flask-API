@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 from logging.handlers import RotatingFileHandler
 
-from src.config import LOG_CONFIG, get_log_level
+from config import LOG_CONFIG, get_log_level
 
 # Define log directory path
 LOG_DIR = os.path.join(

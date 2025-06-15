@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-from src.logger import setup_logger
+from logger import setup_logger
 
 # Get logger
 log_utils_logger = setup_logger("log_utils")
