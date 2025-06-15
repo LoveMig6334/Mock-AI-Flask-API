@@ -23,9 +23,20 @@ PyFlask-API Mock/
 |   |-- config.py          # Configuration settings
 |   |-- logger.py          # Logger setup and configuration
 |   |-- log_utils.py       # Logging utility functions
+|-- example_logging.py     # Example script showing logging usage
 |-- GIL-TEST.py            # Python GIL test file
 |-- README.md              # This readme file
+|-- TROUBLESHOOTING.md     # Troubleshooting guide
 ```
+
+## Import Structure
+
+The project uses a flat import structure within the `src` directory:
+
+- Files within `src/` use relative imports (e.g., `from logger import setup_logger`)
+- External scripts like `example_logging.py` add the `src` directory to the Python path
+
+See `TROUBLESHOOTING.md` for more details on handling import issues.
 
 ## Getting Started
 

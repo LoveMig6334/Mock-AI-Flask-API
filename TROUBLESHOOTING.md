@@ -9,7 +9,7 @@ ModuleNotFoundError: No module named 'src'
 
 There are two ways to fix this:
 
-### 1. Use Relative Imports (Recommended for this project)
+### 1. Use Relative Imports (Used inside the src directory)
 
 Inside the `src` directory, use relative imports like this:
 ```python
@@ -20,23 +20,26 @@ from src.logger import setup_logger
 from logger import setup_logger
 ```
 
-This has been fixed in the current code.
+This has been implemented in the current code for all files within the `src` directory.
 
-### 2. Add the Project Root to Python Path
+### 2. Add the src Directory to Python Path (Used for example_logging.py)
 
-If you're importing modules from outside the `src` directory:
+For scripts outside the `src` directory that need to import from it:
 
 ```python
 import os
 import sys
 
-# Add project root to sys.path
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(project_root)
+# Add src directory to Python path
+src_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'src')
+sys.path.insert(0, src_dir)
 
-# Then import using src.
-from src.logger import setup_logger
+# Now import directly from the modules
+from log_utils import log_error
+from logger import setup_logger
 ```
+
+This approach is used in the `example_logging.py` script.
 
 ## Error Handling and Logging
 
