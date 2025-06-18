@@ -12,7 +12,7 @@ from logger import setup_logger
 logger = setup_logger()
 
 app = Flask(__name__)
-CORS(app)  # เปิดให้ Next.js frontend เข้าถึงได้
+CORS(app)
 
 
 # Request logging middleware
@@ -58,7 +58,6 @@ def log_response_info(response):
     return response
 
 
-# ตัวอย่างจำลอง LLM ขนาดเล็ก (mock)
 def small_llm(prompt):
     logger.debug(f"LLM input: {prompt}")
     response = f"AI: ฉันได้รับข้อความว่า '{prompt}' แล้วนะ!"
@@ -74,7 +73,6 @@ def chat():
 
         logger.info(f"Chat request received with message: {user_input}")
 
-        # ประมวลผลข้อความผ่าน LLM จำลอง
         response = small_llm(user_input)
 
         logger.info("Chat response generated successfully")

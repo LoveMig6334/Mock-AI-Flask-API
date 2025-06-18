@@ -1,16 +1,6 @@
-# Example script showing how to use the logging system
-import os
-import sys
+from src.log_utils import log_error
+from src.logger import setup_logger
 
-# Add src directory to Python path
-src_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "src")
-sys.path.insert(0, src_dir)
-
-# Now import from the modules directly (without src. prefix)
-from log_utils import log_error
-from logger import setup_logger
-
-# Set up logger
 logger = setup_logger("example_script")
 
 
