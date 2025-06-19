@@ -2,14 +2,14 @@ import logging
 import os
 from datetime import datetime
 from logging.handlers import RotatingFileHandler
+from pathlib import Path
 
 from config import LOG_CONFIG, get_log_level
 
 # Define log directory path
-LOG_DIR = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "log"
-)
+LOG_DIR = Path(__file__).parent.parent.parent / "logs"
 
+print(LOG_DIR)
 # Ensure log directory exists
 if not os.path.exists(LOG_DIR):
     os.makedirs(LOG_DIR)
