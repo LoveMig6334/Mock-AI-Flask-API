@@ -1,28 +1,40 @@
-# Flask API Mock with Logging System
+# PyFlask-API Mock with React Frontend
 
-This project demonstrates a simple Flask API with a robust logging system for a mock chatbot application.
+This project demonstrates a full-stack application with a Flask API backend and a React frontend, featuring a robust logging system.
 
 ## Features
 
-- Flask API with mock chatbot response capability
-- Comprehensive logging system with:
-  - Request/response logging
-  - Error tracking
-  - Detailed context logging
-  - Log rotation and management
-  - Configurable logging options
+- **Backend**:
+  - Flask API with RESTful endpoints
+  - Comprehensive logging system with:
+    - Request/response logging
+    - Error tracking
+    - Detailed context logging
+    - Log rotation and management
+    - Configurable logging options
+
+- **Frontend**:
+  - Modern React application
+  - API integration with the Flask backend
+  - Interactive UI for testing the API
 
 ## Project Structure
 
 ```
 PyFlask-API Mock/
-|-- log/                   # Log files directory
+|-- logs/                  # Log files directory
 |-- resources/             # Resource files
 |-- src/
-|   |-- app.py             # Main Flask application
-|   |-- config.py          # Configuration settings
-|   |-- logger.py          # Logger setup and configuration
-|   |-- log_utils.py       # Logging utility functions
+|   |-- backend/           # Flask backend
+|   |   |-- app.py         # Main Flask application
+|   |   |-- config.py      # Configuration settings
+|   |   |-- logger.py      # Logger setup and configuration
+|   |   |-- log_utils.py   # Logging utility functions
+|   |-- frontend/          # React frontend
+|       |-- public/        # Static assets
+|       |-- src/           # React source code
+|           |-- App.js     # Main React component
+|           |-- index.js   # Entry point
 |-- example_logging.py     # Example script showing logging usage
 |-- GIL-TEST.py            # Python GIL test file
 |-- README.md              # This readme file
@@ -31,10 +43,10 @@ PyFlask-API Mock/
 
 ## Import Structure
 
-The project uses a flat import structure within the `src` directory:
+The project uses a structured import approach:
 
-- Files within `src/` use relative imports (e.g., `from logger import setup_logger`)
-- External scripts like `example_logging.py` add the `src` directory to the Python path
+- Files within `src/backend/` use relative imports (e.g., `from logger import setup_logger`)
+- External scripts like `example_logging.py` add the `src/backend` directory to the Python path
 
 See `TROUBLESHOOTING.md` for more details on handling import issues.
 
@@ -42,43 +54,86 @@ See `TROUBLESHOOTING.md` for more details on handling import issues.
 
 ### Prerequisites
 
-- Python 3.6+
-- Flask
+- **Backend**:
+  - Python 3.6+
+  - Flask
+  - Flask-CORS
+
+- **Frontend**:
+  - Node.js 16+
+  - npm or yarn
 
 ### Installation
 
+#### Backend Setup
 1. Clone the repository
 2. Install required packages:
 
-```bash
+```powershell
 pip install flask flask-cors
+```
+
+#### Frontend Setup
+1. Navigate to the frontend directory:
+
+```powershell
+cd src/frontend
+```
+
+2. Install dependencies:
+
+```powershell
+npm install
 ```
 
 ### Running the Application
 
-```bash
-python src/app.py
+#### Running the Backend
+
+```powershell
+python src/backend/app.py
 ```
 
 The API server will start on port 5000.
 
+#### Running the Frontend
+
+```powershell
+cd src/frontend
+npm start
+```
+
+The React development server will start on port 3000 and open in your browser automatically.
+
 ## API Endpoints
 
-### Chat Endpoint
+### Message Endpoint
 
-- **URL**: `/chat`
+- **URL**: `/api/message`
+- **Method**: `GET`
+- **Response**:
+  ```json
+  {
+    "message": "Hello from Flask!"
+  }
+  ```
+
+### Echo Endpoint
+
+- **URL**: `/api/echo`
 - **Method**: `POST`
 - **Body**:
   ```json
   {
-    "message": "Your message here"
+    "text": "Your message here"
   }
   ```
 - **Response**:
   ```json
   {
-    "response": "AI: ฉันได้รับข้อความว่า 'Your message here' แล้วนะ!",
-    "request_id": "unique-request-id"
+    "you_sent": {
+      "text": "Your message here"
+    }
   }
   ```
 
@@ -120,7 +175,7 @@ Logging behavior can be customized through environment variables:
 ### Basic Logging
 
 ```python
-from src.logger import setup_logger
+from logger import setup_logger
 
 # Get logger instance
 logger = setup_logger('my_module')
@@ -136,7 +191,7 @@ logger.critical("This is a critical message")
 ### Advanced Logging
 
 ```python
-from src.log_utils import log_error
+from log_utils import log_error
 
 # Log an error with context
 try:
@@ -144,6 +199,29 @@ try:
     result = 10 / 0
 except Exception as e:
     log_error(e, request, {"operation": "division", "value": 0})
+```
+
+### Logging API Requests and Responses
+
+```python
+from log_utils import log_api_request, log_api_response
+
+# In your Flask route handler
+@app.route("/api/data", methods=["POST"])
+def handle_data():
+    # Log the incoming request
+    log_api_request(request)
+    
+    # Process the request...
+    result = {"status": "success"}
+    
+    # Create response
+    response = jsonify(result)
+    
+    # Log the response
+    log_api_response(request, response, result)
+    
+    return response
 ```
 
 ## Extending the Logging System
@@ -162,7 +240,100 @@ def log_custom_event(event_type, event_data):
     logger.info(f"Custom event: {event_type} - {json.dumps(event_data)}")
 
 # In your application code
-from src.log_utils import log_custom_event
+from log_utils import log_custom_event
 
 log_custom_event("user_login", {"user_id": "123", "ip": "192.168.1.1"})
 ```
+
+## Frontend Application
+
+The project includes a React frontend that interacts with the Flask backend API.
+
+### Features
+- Simple, responsive UI
+- API integration with the Flask backend
+- Real-time data fetching and display
+
+### Component Structure
+- `App.js`: Main application component
+  - Fetches data from the `/api/message` endpoint on load
+  - Provides a form to send data to the `/api/echo` endpoint
+  - Displays the response from the backend
+
+### Development
+
+The frontend is built with React 19 and uses standard create-react-app tooling. To make changes to the frontend:
+
+1. Navigate to the frontend directory:
+
+```powershell
+cd src/frontend
+```
+
+2. Run the development server:
+
+```powershell
+npm start
+```
+
+3. Make changes to the files in `src/frontend/src/`
+4. The browser will automatically reload with your changes
+
+### Building for Production
+
+To create a production build of the frontend:
+
+```powershell
+cd src/frontend
+npm run build
+```
+
+This will create optimized static files in the `build` directory that can be served by any static file server or integrated with the Flask backend.
+
+## Deployment
+
+### Development Environment
+For local development, run both the backend and frontend servers as described in the "Running the Application" section.
+
+### Production Environment
+For production deployment:
+
+1. Build the React frontend:
+```powershell
+cd src/frontend
+npm run build
+```
+
+2. Serve the Flask backend using a production-grade WSGI server like Gunicorn:
+```powershell
+pip install gunicorn
+gunicorn -w 4 -b 0.0.0.0:5000 'src.backend.app:app'
+```
+
+3. Consider using Nginx or another web server to:
+   - Serve static files from the React build
+   - Proxy API requests to the Flask application
+   - Handle HTTPS
+
+### Environment Variables
+Configure the application behavior using environment variables:
+
+```powershell
+# Set log level to DEBUG
+$env:LOG_LEVEL = "DEBUG"
+
+# Start the Flask application
+python src/backend/app.py
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is open-source and available under the MIT License.
+
+---
+
+**Last Updated:** June 19, 2025
