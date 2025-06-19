@@ -3,7 +3,6 @@ from datetime import datetime
 
 from logger import setup_logger
 
-# Get logger
 log_utils_logger = setup_logger("log_utils")
 
 
