@@ -21,5 +21,16 @@ def echo():
     return jsonify({"you_sent": data})
 
 
+def leather_count(leather: str) -> int:
+    counter = 0
+
+    for i in range(len(leather)):
+        if leather[i] != " ":
+            counter += 1
+
+        else:
+            continue
+
+
 if __name__ == "__main__":
     app.run(debug=True)
