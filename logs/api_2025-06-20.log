@@ -1,3 +1,5 @@
 2025-06-20 19:51:30 - flask_api - INFO - Received GET request on /api/message
 2025-06-20 19:51:31 - flask_api - INFO - Received GET request on /api/message
 2025-06-20 19:51:32 - flask_api - INFO - Received POST request on /api/echo with data: {'text': 'Hi Flask'}
+2025-06-20 19:51:46 - flask_api - INFO - Received POST request on /api/echo with data: {'text': 'Hi Flask'}
+2025-06-20 19:53:29 - flask_api - INFO - Received POST request on /api/echo with data: {'text': 'Hi Flask'}
